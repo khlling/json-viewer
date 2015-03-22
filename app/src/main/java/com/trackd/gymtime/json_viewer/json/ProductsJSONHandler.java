@@ -2,6 +2,8 @@ package com.trackd.gymtime.json_viewer.json;
 
 import android.content.Context;
 
+import com.trackd.gymtime.json_viewer.models.ProductPOJO;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,22 +14,26 @@ import java.util.List;
 /**
  * Created by Kev on 19/03/2015.
  */
-public class ProductsDataModel {
+public class ProductsJSONHandler extends JSONHandler{
 
     private JSONHandler jsonHandler;
     private JSONObject obj;
+    private ProductPOJO product;
 
-    private int id;
-    private List<String> imageLocations;
+    public ProductsJSONHandler(Context context, int position){
+        JSONObject obj = newInstance(context, "products.json");
+        product = new ProductPOJO();
+        processData(obj,position);
+    }
 
-    public ProductsDataModel(Context context, int position){
-        obj = jsonHandler.newInstance(context, "products.json");
+    private void processData (JSONObject obj, int position){
+
         List<String> locationsList = new ArrayList<String>();
         try {
-           JSONArray objects =  obj.getJSONArray("objects");
+            JSONArray objects =  obj.getJSONArray("objects");
             for(int i=0; i< objects.length();i++){
                 JSONObject object = objects.getJSONObject(i);
-                setId(object.getInt("id"));
+                product.setId(object.getInt("id"));
                 JSONArray pictureDataArray = object.getJSONArray("pictures_data");
                 JSONObject pictureDataObject = pictureDataArray.getJSONObject(0);
                 JSONObject formats = pictureDataObject.getJSONObject("formats");
@@ -35,24 +41,12 @@ public class ProductsDataModel {
                 locationsList.add(u0.getString("url"));
             }
         }catch (JSONException e){
-        e.printStackTrace();
+            e.printStackTrace();
         }
-        setImageLocations(locationsList);
+        product.setImageLocations(locationsList);
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public List<String> getImageLocations() {
-        return imageLocations;
-    }
-
-    public void setImageLocations(List<String> imageLocation) {
-        this.imageLocations = imageLocation;
+    public ProductPOJO getProduct(){
+        return product;
     }
 }

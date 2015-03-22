@@ -1,4 +1,4 @@
-package com.trackd.gymtime.json_viewer;
+package com.trackd.gymtime.json_viewer.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.trackd.gymtime.json_viewer.json.ProductsDataModel;
+import com.trackd.gymtime.json_viewer.adapters.GridViewAdapter;
+import com.trackd.gymtime.json_viewer.R;
+import com.trackd.gymtime.json_viewer.json.ProductsJSONHandler;
 import com.trackd.gymtime.json_viewer.views.SlidingTabLayout;
 
 /**
@@ -127,13 +129,13 @@ public class SlidingTabsFragment extends Fragment {
             container.addView(view);
 
             if(position == 0) {
-                ProductsDataModel productsDataModel = new ProductsDataModel(getActivity(),4);
+                ProductsJSONHandler productsJSONHandler = new ProductsJSONHandler(getActivity(),4);
                 mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
                 mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
-                mAdapter = new GridViewAdapter(getActivity(), productsDataModel);
+                mAdapter = new GridViewAdapter(getActivity(), productsJSONHandler);
                 mRecyclerView.setAdapter(mAdapter);
             }else{
-                ProductsDataModel likesPOJO = new ProductsDataModel(getActivity(), 2);
+                ProductsJSONHandler likesPOJO = new ProductsJSONHandler(getActivity(), 2);
                 mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
                 mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
                 mAdapter = new GridViewAdapter(getActivity(), likesPOJO);

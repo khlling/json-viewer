@@ -7,6 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.trackd.gymtime.json_viewer.fragments.ProfileFragment;
+import com.trackd.gymtime.json_viewer.fragments.SlidingTabsFragment;
+
 
 public class MainActivity extends ActionBarActivity {
     private RecyclerView mRecyclerView;
@@ -20,7 +23,7 @@ public class MainActivity extends ActionBarActivity {
 
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            getSupportFragmentManager().beginTransaction().replace(R.id.profile_fragment,ProfileFragment.newInstance()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.profile_fragment, ProfileFragment.newInstance()).commit();
             SlidingTabsFragment slidingTabsFragment = new SlidingTabsFragment();
             transaction.replace(R.id.content_fragment, slidingTabsFragment);
             transaction.commit();
